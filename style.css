@@ -230,6 +230,7 @@ body {
     position: absolute;
     bottom: 0;
     margin: 4px;
+    cursor: pointer;
 
 }
 
@@ -242,4 +243,21 @@ body {
     bottom: 6px;
     left: 0%;
     transition: left 0.5s;
+}
+
+.songsbtn img {
+    cursor: pointer;
+}
+
+.songinfo,
+.songtime {
+    color: black;
+    padding: 0 12px;
+
+}
+
+.playsonglist {
+    display: flex;
+    justify-content: space-between;
+
 }
