@@ -221,7 +221,8 @@ body {
     align-items: center;
     gap: 14px;
 }
-.close{
+
+.close {
     display: none;
 }
 
@@ -264,10 +265,15 @@ body {
     cursor: pointer;
 }
 
+.info div {
+    word-break: break-all;
+}
+
 .songinfo,
 .songtime {
     color: black;
     padding: 0 12px;
+    width: 250px;
 
 }
 
@@ -317,7 +323,7 @@ body {
     }
 
     .playbar {
-        width: calc(100vw - 75px); 
+        width: calc(100vw - 75px);
     }
 
     .seekbar {
@@ -338,7 +344,7 @@ body {
 
     .cardContainer {
         margin: 0;
-        justify-content: center; 
+        justify-content: center;
     }
 
     .close {
@@ -357,7 +363,7 @@ body {
         margin-bottom: 35vh;
     }
 
-    .playbar{
+    .playbar {
         right: 25px;
     }
 }

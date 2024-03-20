@@ -1,4 +1,6 @@
 let currentSong = new Audio();
+let songs;
+
 // data fatching through a folder songs 
 function secondsToMinutesSeconds(seconds) {
     if (isNaN(seconds) || seconds < 0) {
@@ -40,11 +42,11 @@ const playMusic = (track, pause = false) => {
     document.querySelector(".songtime").innerHTML = "00:00 / 00:00"
 }
 async function main() {
-   /**
-    * GEt the song list of all songs
-    */
-    let songs = await getSongs()
-    playMusic(songs[0],true)
+    /**
+     * GEt the song list of all songs
+     */
+    songs = await getSongs()
+    playMusic(songs[0], true)
     // console.log(songs)
 
     let songUL = document.querySelector(".songlist").getElementsByTagName("ul")[0]
@@ -89,19 +91,19 @@ async function main() {
         console.log("currentSong.currentTime, currentSong.duration");
         document.querySelector(".songtime").innerHTML = `${secondsToMinutesSeconds(currentSong.
             currentTime)} / ${secondsToMinutesSeconds(currentSong.duration)}`
-        document.querySelector(".circle").style.left = (currentSong.currentTime/currentSong.duration) * 100 + "%";
+        document.querySelector(".circle").style.left = (currentSong.currentTime / currentSong.duration) * 100 + "%";
 
-      })
+    })
 
-      // add an event listener to the seekbar
+    // add an event listener to the seekbar
 
-      document.querySelector(".seekbar").addEventListener("click", e=>{
-        let percent = (e.offsetX/e.target.getBoundingClientRect().witdh) * 100;
+    document.querySelector(".seekbar").addEventListener("click", e => {
+        let percent = (e.offsetX / e.target.getBoundingClientRect().witdh) * 100;
         document.querySelector(".circle").style.left = percent + "%";
         currentSong.currentTime = ((currentSong.duration) * percent) / 100
-      })
+    })
 
-      
+
     // Add an event listener for hamburger
     document.querySelector(".hamburger").addEventListener("click", () => {
         document.querySelector(".left").style.left = "0"
@@ -110,6 +112,27 @@ async function main() {
     // Add an event listener for close button
     document.querySelector(".close").addEventListener("click", () => {
         document.querySelector(".left").style.left = "-120%"
+    })
+
+    // Add an event listener to previous
+    previous.addEventListener("click", () => {
+        currentSong.pause()
+        console.log("Previous clicked")
+        let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0])
+        if ((index - 1) >= 0) {
+            playMusic(songs[index - 1])
+        }
+    })
+
+    // Add an event listener to next
+    next.addEventListener("click", () => {
+        currentSong.pause()
+        console.log("Next clicked")
+
+        let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0])
+        if ((index + 1) < songs.length) {
+            playMusic(songs[index + 1])
+        }
     })
 
 
