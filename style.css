@@ -268,13 +268,34 @@ body {
 .info div {
     word-break: break-all;
 }
+.timevol{
+    display: flex;
+    justify-content: space-between;
+    width: 25px;
+}
 
-.songinfo,
+.songinfo {
+    color: black;
+    padding: 0 12px;
+    width: 250px;
+
+}
 .songtime {
     color: black;
     padding: 0 12px;
     width: 250px;
 
+}
+.volume {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+.abovebar {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
 }
 
 .playsonglist {
