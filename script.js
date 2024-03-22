@@ -1,5 +1,6 @@
 let currentSong = new Audio();
 let songs;
+let currFolder;
 
 // data fatching through a folder songs 
 function secondsToMinutesSeconds(seconds) {
@@ -16,8 +17,9 @@ function secondsToMinutesSeconds(seconds) {
     return `${formattedMinutes}:${formattedSeconds}`;
 }
 
-async function getSongs() {
-    let a = await fetch("http://127.0.0.1:5500/songs/")
+async function getSongs(folder) {
+    currFolder = folder;    
+    let a = await fetch(`http://127.0.0.1:5500/${folder}/`)
     let response = await a.text();
     console.log(response)
     let div = document.createElement("div");
@@ -27,16 +29,16 @@ async function getSongs() {
     for (let index = 0; index < as.length; index++) {
         const element = as[index];
         if (element.href.endsWith(".mp3")) {
-            songs.push(element.href.split("/songs/")[1]);
+            songs.push(element.href.split(`/${folder}/`)[1]);
         }
     }
     return songs
 }
 const playMusic = (track, pause = false) => {
-    currentSong.src = "/songs/" + track;
+    currentSong.src = `/${currFolder}/` + track;
     if (!pause) {
         currentSong.play()
-        play.src = "pause.svg"
+        play.src = "img/pause.svg"
     }
     document.querySelector(".songinfo").innerHTML = decodeURI(track);
     document.querySelector(".songtime").innerHTML = "00:00 / 00:00"
@@ -45,20 +47,20 @@ async function main() {
     /**
      * GEt the song list of all songs
      */
-    songs = await getSongs()
+    songs = await getSongs("/songs/ncs")
     playMusic(songs[0], true)
     // console.log(songs)
 
     let songUL = document.querySelector(".songlist").getElementsByTagName("ul")[0]
     for (const song of songs) {
-        songUL.innerHTML = songUL.innerHTML + `<li> <img class="invert" width="34" src="music.svg" alt="">
+        songUL.innerHTML = songUL.innerHTML + `<li> <img class="invert" width="34" src="img/music.svg" alt="">
                             <div class="info">
                                 <div> ${song.replaceAll("%20", " ")}</div>
                                 <div>DevOps</div>
                             </div>
                             <div class="playnow">
                                 <span>Play Now</span>
-                                <img class="invert" src="play.svg" alt="">
+                                <img class="invert" src="img/play.svg" alt="">
                             </div>
                             
                         </li>`;
@@ -78,11 +80,11 @@ async function main() {
     play.addEventListener("click", () => {
         if (currentSong.paused) {
             currentSong.play()
-            play.src = "pause.svg"
+            play.src = "img/pause.svg"
         }
         else {
             currentSong.pause()
-            play.src = "play.svg"
+            play.src = "img/play.svg"
         }
     })
 
