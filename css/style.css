@@ -88,7 +88,7 @@ body {
     padding: 16px;
 }
 
-.card-container {
+.cardContainer {
     margin: 30px;
     display: flex;
     flex-wrap: wrap;

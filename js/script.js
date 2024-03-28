@@ -76,8 +76,35 @@ const playMusic = (track, pause = false) => {
         let response = await a.text();
         let div = document.createElement("div")
         div.innerHTML = response;
-        console.log(div)
+        let anchors  = div.getElementsByTagName("a");
+        let cardContainer = document.querySelector(".cardContainer")
+        let array = Array.from(anchors)
+        for (let index = 0; index < array.length; index++){
+            const e = array[index];
+            if(e.href.includes("/songs")){
+        let folder = e.href.split("/").slice(-2)[0]
+           
+         //<<<< Get the Meta data
+        let a = await fetch(`http://127.0.0.1:5500/songs/${folder}/info.json`)
+        let response = await a.json();
+        cardContainer.innerHTML = cardContainer.innerHTML + `<div data-folder="cs" class="card">
+        <div class="play">
+            <svg xmlns="http://www.w3.org/2000/svg" data-encore-id="icon" role="img" aria-hidden="true"
+                viewBox="0 0 24 24" class="Svg-sc-ytk21e-0 bneLcE">
+                <path
+                    d="m7.05 3.606 13.49 7.788a.7.7 0 0 1 0 1.212L7.05 20.394A.7.7 0 0 1 6 19.788V4.212a.7.7 0 0 1 1.05-.606z">
+                </path>
+            </svg>
+        </div>
+        <div>
+            <img src="/songs/${folder}/cover.jpg" alt="">
+            <h2>${response.title}</h2>
+            <p>${response.description}}</p>
+        </div>`
+        
+      }
     }
+}
     
 
 async function main() {
