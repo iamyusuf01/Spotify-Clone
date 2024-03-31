@@ -91,10 +91,10 @@ body {
 .cardContainer {
     margin: 30px;
     display: flex;
-    flex-wrap: wrap;
     gap: 10px;
-    overflow-y: scroll;
-    max-height: 70vh;
+    flex-wrap: wrap;
+    overflow-y: auto;
+    max-height: 60vh;
 }
 
 .card {
